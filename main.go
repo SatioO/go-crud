@@ -17,8 +17,8 @@ import (
 func main() {
 	router := mux.NewRouter()
 
-	user_service := usecase.NewUserService()
-	api.RegisterUserHandler(router, user_service)
+	userService := usecase.NewUserService()
+	api.RegisterUserHandler(router, userService)
 
 	server := http.Server{
 		Handler: router,
