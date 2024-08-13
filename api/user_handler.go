@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gorilla/mux"
 	"github.com/satioO/basics/v2/helpers"
 	"github.com/satioO/basics/v2/models"
 	"github.com/satioO/basics/v2/usecase"
@@ -15,14 +14,14 @@ type userHandler struct {
 	us usecase.UserService
 }
 
-func RegisterUserHandler(router *mux.Router, us usecase.UserService) {
+func RegisterUserHandler(router *http.ServeMux, us usecase.UserService) {
 	handler := userHandler{us}
 
-	router.HandleFunc("/users", helpers.Register(handler.findUsers)).Methods(http.MethodGet)
-	router.HandleFunc("/users/{userId}", helpers.Register(handler.findUserById)).Methods(http.MethodGet)
-	router.HandleFunc("/users", helpers.Register(handler.createUser)).Methods(http.MethodPost)
-	router.HandleFunc("/users/{userId}", helpers.Register(handler.updateUser)).Methods(http.MethodPut)
-	router.HandleFunc("/users/{userId}", helpers.Register(handler.deleteUser)).Methods(http.MethodDelete)
+	router.HandleFunc("GET /users", helpers.Register(handler.findUsers))
+	router.HandleFunc("GET /users/{userId}", helpers.Register(handler.findUserById))
+	router.HandleFunc("POST /users", helpers.Register(handler.createUser))
+	router.HandleFunc("PUT /users/{userId}", helpers.Register(handler.updateUser))
+	router.HandleFunc("DELETE /users/{userId}", helpers.Register(handler.deleteUser))
 }
 
 func (h *userHandler) findUsers(w http.ResponseWriter, r *http.Request) error {
@@ -32,7 +31,7 @@ func (h *userHandler) findUsers(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (h *userHandler) findUserById(w http.ResponseWriter, r *http.Request) error {
-	userId, err := strconv.Atoi(mux.Vars(r)["userId"])
+	userId, err := strconv.Atoi(r.PathValue("userId"))
 
 	if err != nil {
 		return helpers.InvalidRequestData(map[string]string{"error": "invalid user id"})
@@ -64,7 +63,7 @@ func (h *userHandler) createUser(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (h *userHandler) updateUser(w http.ResponseWriter, r *http.Request) error {
-	userId, err := strconv.Atoi(mux.Vars(r)["userId"])
+	userId, err := strconv.Atoi(r.PathValue("userId"))
 
 	if err != nil {
 		return helpers.InvalidRequestData(map[string]string{"error": "invalid user id"})
@@ -79,7 +78,7 @@ func (h *userHandler) updateUser(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (h *userHandler) deleteUser(w http.ResponseWriter, r *http.Request) error {
-	userId, err := strconv.Atoi(mux.Vars(r)["userId"])
+	userId, err := strconv.Atoi(r.PathValue("userId"))
 
 	if err != nil {
 		return helpers.InvalidRequestData(map[string]string{"error": "invalid user id"})
