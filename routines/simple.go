@@ -85,3 +85,16 @@ func Task2(ctx context.Context, wg *sync.WaitGroup) int {
 		return 2
 	}
 }
+
+func HeartBeat(ch chan<- string, ctx context.Context, interval time.Duration) {
+	defer close(ch)
+	for {
+		time.Sleep(interval)
+		select {
+		case <-ctx.Done():
+			return
+		default:
+			ch <- "heartbeat"
+		}
+	}
+}

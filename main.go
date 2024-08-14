@@ -43,17 +43,40 @@ func createWorkerPool(jobs <-chan Job) {
 	wg.Wait()
 }
 
+// func delay(cancel context.CancelFunc) {
+// 	time.Sleep(time.Second * 4)
+// 	cancel()
+// }
+
 func main() {
+	// Environment
+	// fmt.Println(os.Getenv("DB_CONNECTION"))
+	// Heartbeat
+	// ch := make(chan string, 1)
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second*4)
+
+	// go routines.HeartBeat(ch, ctx, time.Second)
+	// go delay(cancel)
+
+	// for {
+	// 	_, ok := <-ch
+	// 	if !ok {
+	// 		break
+	// 	}
+
+	// 	fmt.Println("heartbeat")
+	// }
+
 	// WORKER POOL
 	// Worker goroutines listens for new tasks on jobs buffered channel,
 	// once the job is completed, result is written to the results buffered channel
-	jobs := make(chan Job, 10)
+	// jobs := make(chan Job, 10)
 	// results := make(chan Result, 10)
 
-	go allocate(jobs)
-	// go process(jobs)
+	// go allocate(jobs)
+	// // go process(jobs)
 
-	createWorkerPool(jobs)
+	// createWorkerPool(jobs)
 	// BUFFERED
 	// ch := make(chan int, 2)
 	// go routines.Buffered(ch)
