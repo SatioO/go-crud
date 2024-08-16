@@ -49,6 +49,33 @@ func createWorkerPool(jobs <-chan Job) {
 // }
 
 func main() {
+	// MAP, Filter, Reduce
+	arr := []int{1, 2, 3, 6, 4, 5}
+	fmt.Println("result", arr)
+	// // Pointer vs New
+	// u1 := routines.NewUser()
+	// // u2 := routines.NewUser()
+
+	// fmt.Printf("is equal: %p\n", &u1)
+
+	// u1.SetName("Vaibhav")
+	// fmt.Println("Name: ", u1.GetName())
+
+	// fmt.Printf("is equal: %p\n", &u1)
+	// Mutex
+	// reader := concurrent.FileReader{}
+	// var wg sync.WaitGroup
+
+	// for range 1000 {
+	// 	wg.Add(1)
+	// 	go func() {
+	// 		defer wg.Done()
+	// 		reader.ReadBytes()
+	// 	}()
+	// }
+
+	// wg.Wait()
+	// fmt.Println("Final ByteSize:", reader.ByteSize)
 	// Environment
 	// fmt.Println(os.Getenv("DB_CONNECTION"))
 	// Heartbeat

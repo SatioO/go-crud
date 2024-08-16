@@ -98,3 +98,19 @@ func HeartBeat(ch chan<- string, ctx context.Context, interval time.Duration) {
 		}
 	}
 }
+
+type User struct {
+	name string
+}
+
+func NewUser() User {
+	return User{}
+}
+
+func (u User) GetName() string {
+	return u.name
+}
+
+func (u *User) SetName(name string) {
+	u.name = name
+}
